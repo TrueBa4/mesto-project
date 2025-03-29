@@ -107,6 +107,7 @@ profileImage.addEventListener("click", () => {
 
 profileImageForm.addEventListener("submit", (evt) => {
     evt.preventDefault();
+    profileImageSubmitButton.textContent = "Сохранение...";
 
     changeProfileImage({ avatar: profileImageLinkInput.value })
         .then((data) => {
@@ -129,6 +130,7 @@ profileEditButton.addEventListener("click", () => {
 
 profileForm.addEventListener("submit", (evt) => {
     evt.preventDefault();
+    profileSubmitButton.textContent = "Сохранение...";
 
     changeProfileInfo({ name: nameInput.value, about: descriptionInput.value })
         .then((data) => {
