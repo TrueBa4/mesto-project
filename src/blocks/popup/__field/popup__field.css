@@ -1,0 +1,6 @@
+.popup__field {
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
