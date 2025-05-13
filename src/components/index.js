@@ -76,6 +76,7 @@ cardAddButton.addEventListener("click", () => {
 
 cardForm.addEventListener("submit", (evt) => {
     evt.preventDefault();
+    cardSubmitButton.textContent = "Сохранение...";
     cardSubmitButton.classList.add(validationSettings.inactiveButtonClass);
 
     addCard({ name: cardNameInput.value, link: cardLinkInput.value })
@@ -85,6 +86,7 @@ cardForm.addEventListener("submit", (evt) => {
         })
         .catch(console.log)
         .finally(() => {
+            cardSubmitButton.textContent = "Сохранить";
             cardSubmitButton.classList.remove(validationSettings.inactiveButtonClass);
         });
 });
@@ -131,6 +133,7 @@ profileEditButton.addEventListener("click", () => {
 profileForm.addEventListener("submit", (evt) => {
     evt.preventDefault();
     profileSubmitButton.textContent = "Сохранение...";
+    profileSubmitButton.classList.add(validationSettings.inactiveButtonClass);
 
     changeProfileInfo({ name: nameInput.value, about: descriptionInput.value })
         .then((data) => {
@@ -141,5 +144,6 @@ profileForm.addEventListener("submit", (evt) => {
         .catch(console.log)
         .finally(() => {
             profileSubmitButton.textContent = "Сохранить";
+            profileSubmitButton.classList.remove(validationSettings.inactiveButtonClass);
         });
 });
