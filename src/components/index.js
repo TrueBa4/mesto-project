@@ -66,6 +66,12 @@ Promise.all([getProfileInfo(), getInitialCards()])
     })
     .catch(console.log);
 
+function resetButton(button)  {
+    button.textContent = "Сохранить";
+    button.disabled = false;
+    button.classList.remove(validationSettings.inactiveButtonClass);
+}
+
 cardAddButton.addEventListener("click", () => {
     cardNameInput.value = "";
     cardLinkInput.value = "";
@@ -77,6 +83,7 @@ cardAddButton.addEventListener("click", () => {
 cardForm.addEventListener("submit", (evt) => {
     evt.preventDefault();
     cardSubmitButton.textContent = "Сохранение...";
+    cardSubmitButton.disabled = true;
     cardSubmitButton.classList.add(validationSettings.inactiveButtonClass);
 
     addCard({ name: cardNameInput.value, link: cardLinkInput.value })
@@ -84,11 +91,12 @@ cardForm.addEventListener("submit", (evt) => {
             cardsContainer.prepend(createCard(card, currentUserId));
             closeModal(newCardPopup);
         })
-        .catch(console.log)
-        .finally(() => {
-            cardSubmitButton.textContent = "Сохранить";
-            cardSubmitButton.classList.remove(validationSettings.inactiveButtonClass);
-        });
+        .catch((err) => {
+            console.log(err);
+        })
+        .finally(() => setTimeout(() => {
+            resetButton(cardSubmitButton);
+        }), 1000);
 });
 
 cardsContainer.addEventListener("click", (evt) => {
@@ -110,16 +118,20 @@ profileImage.addEventListener("click", () => {
 profileImageForm.addEventListener("submit", (evt) => {
     evt.preventDefault();
     profileImageSubmitButton.textContent = "Сохранение...";
+    profileImageSubmitButton.disabled = true;
+    profileImageSubmitButton.classList.add(validationSettings.inactiveButtonClass);
 
     changeProfileImage({ avatar: profileImageLinkInput.value })
         .then((data) => {
             profileImage.style.backgroundImage = `url(${data.avatar})`;
             closeModal(profileImagePopup);
         })
-        .catch((err) => console.log(err))
-        .finally(() => {
-            profileImageSubmitButton.textContent = "Сохранить";
-        });
+        .catch((err) => {
+            console.log(err);
+        })
+        .finally(() => setTimeout(() => {
+            resetButton(profileImageSubmitButton);
+        }), 1000);
 });
 
 profileEditButton.addEventListener("click", () => {
@@ -133,6 +145,7 @@ profileEditButton.addEventListener("click", () => {
 profileForm.addEventListener("submit", (evt) => {
     evt.preventDefault();
     profileSubmitButton.textContent = "Сохранение...";
+    profileSubmitButton.disabled = true;
     profileSubmitButton.classList.add(validationSettings.inactiveButtonClass);
 
     changeProfileInfo({ name: nameInput.value, about: descriptionInput.value })
@@ -141,9 +154,10 @@ profileForm.addEventListener("submit", (evt) => {
             profileDescription.textContent = data.about;
             closeModal(editProfilePopup);
         })
-        .catch(console.log)
-        .finally(() => {
-            profileSubmitButton.textContent = "Сохранить";
-            profileSubmitButton.classList.remove(validationSettings.inactiveButtonClass);
-        });
+        .catch((err) => {
+            console.log(err);
+        })
+        .finally(() => setTimeout(() => {
+            resetButton(profileSubmitButton);
+        }), 1000);
 });
